@@ -227,7 +227,13 @@ export default function HomePage() {
           padding: "0 48px 80px",
         }}
       >
+        <style>{`
+          @media (max-width: 640px) {
+            .before-after-grid { grid-template-columns: 1fr !important; }
+          }
+        `}</style>
         <div
+          className="before-after-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
