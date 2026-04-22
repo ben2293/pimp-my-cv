@@ -205,11 +205,25 @@ export default function HomePage() {
       </section>
 
       {/* Before/After showcase */}
-      <section style={{ maxWidth: "900px", margin: "60px auto 0", padding: "0 48px 80px" }}>
-        <p style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ink-faint)", textAlign: "center", marginBottom: "16px" }}>
-          ← drag to compare →
-        </p>
-        <BeforeAfterSlider before={<BeforeCard />} after={<AfterCard />} />
+      <section style={{ maxWidth: "1200px", margin: "60px auto 0", padding: "0 48px 80px" }}>
+        {/* Desktop: side by side */}
+        <div className="ba-desktop" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+          <BeforeCard />
+          <AfterCard />
+        </div>
+        {/* Mobile: drag slider */}
+        <div className="ba-mobile" style={{ display: "none" }}>
+          <p style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ink-faint)", textAlign: "center", marginBottom: "16px" }}>
+            ← drag to compare →
+          </p>
+          <BeforeAfterSlider before={<BeforeCard />} after={<AfterCard />} />
+        </div>
+        <style>{`
+          @media (max-width: 640px) {
+            .ba-desktop { display: none !important; }
+            .ba-mobile { display: block !important; }
+          }
+        `}</style>
       </section>
 
       {/* Footer */}
