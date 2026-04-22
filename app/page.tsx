@@ -117,7 +117,7 @@ export default function HomePage() {
         style={{
           maxWidth: "960px",
           margin: "0 auto",
-          padding: "100px 48px 48px",
+          padding: "40px 48px 48px",
           textAlign: "center",
         }}
       >
