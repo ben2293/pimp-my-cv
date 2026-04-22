@@ -207,7 +207,7 @@ export default function HomePage() {
       {/* Before/After showcase */}
       <section style={{ maxWidth: "1200px", margin: "60px auto 0", padding: "0 48px 80px" }}>
         {/* Desktop: side by side */}
-        <div className="ba-desktop" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", alignItems: "stretch" }}>
+        <div className="ba-desktop" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
           <BeforeCard />
           <AfterCard />
         </div>
@@ -354,6 +354,7 @@ function BeforeCard() {
         fontFamily: "Times New Roman, serif",
         color: "#000",
         lineHeight: 1.6,
+        aspectRatio: "210 / 297",
       }}
     >
       {/* Label */}
@@ -528,7 +529,7 @@ function WordSection({ title, children }: { title: string; children: React.React
 
 function AfterCard() {
   return (
-    <div style={{ background: "#fff", border: "2px solid var(--ink)", fontFamily: "var(--font-inter-tight)", overflow: "hidden", minHeight: "100%" }}>
+    <div style={{ background: "#fff", border: "2px solid var(--ink)", fontFamily: "var(--font-inter-tight)", overflow: "hidden", aspectRatio: "210 / 297" }}>
       <div style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--accent)", padding: "10px 20px 0" }}>
         ✓ After
       </div>
