@@ -208,8 +208,14 @@ export default function HomePage() {
       <section style={{ maxWidth: "1200px", margin: "60px auto 0", padding: "0 48px 80px" }}>
         {/* Desktop: side by side */}
         <div className="ba-desktop" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
-          <BeforeCard />
-          <AfterCard />
+          <div>
+            <p style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--ink-faint)", marginBottom: "8px" }}>✗ Before</p>
+            <BeforeCard />
+          </div>
+          <div>
+            <p style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--accent)", marginBottom: "8px" }}>✓ After</p>
+            <AfterCard />
+          </div>
         </div>
         {/* Mobile: drag slider */}
         <div className="ba-mobile" style={{ display: "none" }}>
@@ -358,21 +364,7 @@ function BeforeCard() {
         position: "relative",
       }}
     >
-      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "80px", background: "linear-gradient(to bottom, transparent, #fff)", pointerEvents: "none", zIndex: 2 }} />
-      {/* Label */}
-      <div
-        style={{
-          fontFamily: "var(--font-jetbrains-mono)",
-          fontSize: "10px",
-          letterSpacing: "0.15em",
-          textTransform: "uppercase",
-          color: "var(--ink-faint)",
-          padding: "10px 14px 0",
-        }}
-      >
-        ✗ Before
-      </div>
-
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "35%", background: "linear-gradient(to bottom, transparent, #fff)", pointerEvents: "none", zIndex: 2 }} />
       {/* The terrible CV */}
       <div style={{ padding: "10px 14px 14px" }}>
         {/* Word-style blue header banner */}
@@ -532,11 +524,7 @@ function WordSection({ title, children }: { title: string; children: React.React
 function AfterCard() {
   return (
     <div style={{ background: "#fff", border: "2px solid var(--ink)", fontFamily: "var(--font-inter-tight)", overflow: "hidden", aspectRatio: "210 / 297", position: "relative" }}>
-      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "80px", background: "linear-gradient(to bottom, transparent, #fff)", pointerEvents: "none", zIndex: 2 }} />
-      <div style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--accent)", padding: "10px 20px 0" }}>
-        ✓ After
-      </div>
-
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "35%", background: "linear-gradient(to bottom, transparent, #fff)", pointerEvents: "none", zIndex: 2 }} />
       <div style={{ padding: "12px 20px 18px" }}>
         <p style={{ fontFamily: "var(--font-fraunces)", fontWeight: 900, fontSize: "22px", letterSpacing: "-0.03em", lineHeight: 1, marginBottom: "3px" }}>
           Rahul Kumar
