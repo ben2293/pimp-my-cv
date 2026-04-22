@@ -1,0 +1,179 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cream: #f5f1e8;
+  --ink: #111111;
+  --ink-muted: #555555;
+  --ink-faint: #999999;
+  --accent: #e63946;
+  --border: #d4cfc6;
+}
+
+html {
+  background-color: var(--cream);
+  color: var(--ink);
+}
+
+body {
+  font-family: var(--font-inter-tight), sans-serif;
+  background-color: var(--cream);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* CV Sheet — screen */
+.cv-sheet {
+  background: #fff;
+  width: 210mm;
+  min-height: 297mm;
+  padding: 18mm 16mm;
+  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.12);
+  font-family: var(--font-inter-tight), sans-serif;
+  font-size: 9.5pt;
+  line-height: 1.5;
+  color: #111;
+}
+
+.cv-name {
+  font-family: var(--font-fraunces), serif;
+  font-size: 28pt;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: #111;
+}
+
+.cv-title {
+  font-family: var(--font-inter-tight), sans-serif;
+  font-size: 10pt;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+
+.cv-contact {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 7.5pt;
+  color: var(--ink-muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin-top: 10px;
+}
+
+.cv-section-label {
+  font-family: var(--font-inter-tight), sans-serif;
+  font-size: 7pt;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.cv-divider {
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 12px;
+}
+
+.cv-entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.cv-company {
+  font-weight: 700;
+  font-size: 10pt;
+  color: #111;
+}
+
+.cv-role {
+  font-size: 9pt;
+  font-weight: 500;
+  color: var(--ink-muted);
+  margin-top: 1px;
+}
+
+.cv-date {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 7.5pt;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+.cv-bullets {
+  margin-top: 5px;
+  padding-left: 12px;
+  list-style: none;
+}
+
+.cv-bullets li {
+  position: relative;
+  padding-left: 10px;
+  margin-bottom: 3px;
+  font-size: 9pt;
+  line-height: 1.55;
+}
+
+.cv-bullets li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.cv-skill-category {
+  font-weight: 600;
+  font-size: 8.5pt;
+  color: var(--ink);
+}
+
+.cv-skill-list {
+  font-size: 8.5pt;
+  color: var(--ink-muted);
+}
+
+/* Print styles */
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  html,
+  body {
+    background: white !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .cv-sheet {
+    width: 100%;
+    min-height: unset;
+    padding: 12mm 14mm;
+    box-shadow: none;
+    margin: 0;
+    font-size: 9pt;
+  }
+
+  .cv-name {
+    font-size: 24pt;
+  }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+}
