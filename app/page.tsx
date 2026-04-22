@@ -115,9 +115,9 @@ export default function HomePage() {
       {/* Hero */}
       <section
         style={{
-          maxWidth: "760px",
+          maxWidth: "960px",
           margin: "0 auto",
-          padding: "80px 32px 40px",
+          padding: "100px 48px 48px",
           textAlign: "center",
         }}
       >
@@ -138,7 +138,7 @@ export default function HomePage() {
           style={{
             fontFamily: "var(--font-fraunces)",
             fontWeight: 900,
-            fontSize: "clamp(42px, 8vw, 80px)",
+            fontSize: "clamp(52px, 8vw, 110px)",
             lineHeight: 0.95,
             letterSpacing: "-0.04em",
             color: "var(--ink)",
@@ -222,9 +222,9 @@ export default function HomePage() {
       {/* Before/After showcase */}
       <section
         style={{
-          maxWidth: "960px",
+          maxWidth: "1200px",
           margin: "60px auto 0",
-          padding: "0 32px 80px",
+          padding: "0 48px 80px",
         }}
       >
         <div
