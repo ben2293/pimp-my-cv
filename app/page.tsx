@@ -525,19 +525,19 @@ function AfterCard() {
   return (
     <div style={{ background: "#fff", border: "2px solid var(--ink)", fontFamily: "var(--font-inter-tight)", overflow: "hidden", aspectRatio: "210 / 297", position: "relative" }}>
       <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "35%", background: "linear-gradient(to bottom, rgba(255,255,255,0), #ffffff)", pointerEvents: "none", zIndex: 2 }} />
-      <div style={{ padding: "12px 20px 18px" }}>
-        <p style={{ fontFamily: "var(--font-fraunces)", fontWeight: 900, fontSize: "22px", letterSpacing: "-0.03em", lineHeight: 1, marginBottom: "3px" }}>
+      <div style={{ padding: "18px 26px 20px" }}>
+        <p style={{ fontFamily: "var(--font-fraunces)", fontWeight: 900, fontSize: "32px", letterSpacing: "-0.03em", lineHeight: 1, marginBottom: "4px" }}>
           Rahul Kumar
         </p>
-        <p style={{ fontFamily: "var(--font-inter-tight)", fontSize: "8px", letterSpacing: "0.14em", textTransform: "uppercase", color: "#666", marginBottom: "5px" }}>
+        <p style={{ fontFamily: "var(--font-inter-tight)", fontSize: "11px", letterSpacing: "0.14em", textTransform: "uppercase", color: "#666", marginBottom: "6px" }}>
           Software Developer
         </p>
-        <p style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "8px", color: "#999", marginBottom: "12px" }}>
+        <p style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "10px", color: "#999", marginBottom: "16px" }}>
           rahulkumar1998@gmail.com · +91 9876543210 · Bangalore
         </p>
 
         <AfterSection label="Profile">
-          <p style={{ fontSize: "8.5px", lineHeight: 1.6, color: "#444" }}>
+          <p style={{ fontSize: "11px", lineHeight: 1.65, color: "#444" }}>
             Software developer with 3+ years delivering web products for enterprise clients at TechSoft Solutions.
             Track record of owning features end-to-end — from requirement gathering through to production.
           </p>
@@ -560,15 +560,15 @@ function AfterCard() {
         <AfterSection label="Education">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
             <div>
-              <span style={{ fontSize: "9.5px", fontWeight: 700 }}>VIT University</span>
-              <div style={{ fontSize: "8.5px", color: "#666" }}>B.Tech, Computer Science · 7.2 CGPA</div>
+              <span style={{ fontSize: "12px", fontWeight: 700 }}>VIT University</span>
+              <div style={{ fontSize: "11px", color: "#666" }}>B.Tech, Computer Science · 7.2 CGPA</div>
             </div>
-            <span style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "7.5px", color: "#aaa" }}>2021</span>
+            <span style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "10px", color: "#aaa" }}>2021</span>
           </div>
         </AfterSection>
 
         <AfterSection label="Skills">
-          <div style={{ fontSize: "8.5px", lineHeight: 1.8 }}>
+          <div style={{ fontSize: "11px", lineHeight: 1.9 }}>
             <span style={{ fontWeight: 600 }}>Languages:</span> <span style={{ color: "#666" }}>C, C++, Java, Python, JavaScript</span><br />
             <span style={{ fontWeight: 600 }}>Web:</span> <span style={{ color: "#666" }}>HTML, CSS, React (basic)</span><br />
             <span style={{ fontWeight: 600 }}>Tools:</span> <span style={{ color: "#666" }}>Git, MS Office, Linux</span>
@@ -576,26 +576,26 @@ function AfterCard() {
         </AfterSection>
 
         <AfterSection label="Projects">
-          <div style={{ marginBottom: "7px" }}>
+          <div style={{ marginBottom: "10px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-              <span style={{ fontSize: "9px", fontWeight: 700 }}>Inventory Management System</span>
-              <span style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "7px", color: "#bbb" }}>Python · MySQL</span>
+              <span style={{ fontSize: "12px", fontWeight: 700 }}>Inventory Management System</span>
+              <span style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "9px", color: "#bbb" }}>Python · MySQL</span>
             </div>
-            <p style={{ fontSize: "8px", color: "#666", margin: "2px 0 0", lineHeight: 1.5 }}>Built a desktop app to manage stock for 3 local businesses, reducing manual errors by ~80%.</p>
+            <p style={{ fontSize: "11px", color: "#666", margin: "3px 0 0", lineHeight: 1.55 }}>Built a desktop app to manage stock for 3 local businesses, reducing manual errors by ~80%.</p>
           </div>
           <div>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-              <span style={{ fontSize: "9px", fontWeight: 700 }}>College Fest Portal</span>
-              <span style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "7px", color: "#bbb" }}>React · Node.js</span>
+              <span style={{ fontSize: "12px", fontWeight: 700 }}>College Fest Portal</span>
+              <span style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "9px", color: "#bbb" }}>React · Node.js</span>
             </div>
-            <p style={{ fontSize: "8px", color: "#666", margin: "2px 0 0", lineHeight: 1.5 }}>Event registration platform used by 1,200+ students across 14 events at VIT annual fest.</p>
+            <p style={{ fontSize: "11px", color: "#666", margin: "3px 0 0", lineHeight: 1.55 }}>Event registration platform used by 1,200+ students across 14 events at VIT annual fest.</p>
           </div>
         </AfterSection>
 
         <AfterSection label="Achievements">
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             {["Ranked top 5% in CodeChef Division 3 contest (Jan 2023)", "Smart India Hackathon finalist, team of 6 (2022)", "Led college coding club of 80+ members for 2 consecutive years"].map((a, i) => (
-              <li key={i} style={{ fontSize: "8px", color: "#555", lineHeight: 1.6, paddingLeft: "10px", position: "relative" }}>
+              <li key={i} style={{ fontSize: "11px", color: "#555", lineHeight: 1.7, paddingLeft: "12px", position: "relative" }}>
                 <span style={{ position: "absolute", left: 0, color: "var(--accent)" }}>–</span>{a}
               </li>
             ))}
@@ -608,11 +608,11 @@ function AfterCard() {
 
 function AfterSection({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div style={{ marginBottom: "10px" }}>
-      <p style={{ fontFamily: "var(--font-inter-tight)", fontSize: "7px", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--accent)", marginBottom: "4px" }}>
+    <div style={{ marginBottom: "14px" }}>
+      <p style={{ fontFamily: "var(--font-inter-tight)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--accent)", marginBottom: "5px" }}>
         {label}
       </p>
-      <div style={{ height: "1px", background: "var(--border)", marginBottom: "7px" }} />
+      <div style={{ height: "1px", background: "var(--border)", marginBottom: "9px" }} />
       {children}
     </div>
   );
@@ -620,17 +620,17 @@ function AfterSection({ label, children }: { label: string; children: React.Reac
 
 function AfterEntry({ company, role, dates, bullets }: { company: string; role: string; dates: string; bullets: string[] }) {
   return (
-    <div style={{ marginBottom: "8px" }}>
+    <div style={{ marginBottom: "10px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
         <div>
-          <span style={{ fontSize: "9.5px", fontWeight: 700 }}>{company}</span>
-          <div style={{ fontSize: "8.5px", color: "#666" }}>{role}</div>
+          <span style={{ fontSize: "12px", fontWeight: 700 }}>{company}</span>
+          <div style={{ fontSize: "11px", color: "#666" }}>{role}</div>
         </div>
-        <span style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "7px", color: "#aaa", whiteSpace: "nowrap" }}>{dates}</span>
+        <span style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "9px", color: "#aaa", whiteSpace: "nowrap" }}>{dates}</span>
       </div>
-      <ul style={{ listStyle: "none", padding: 0, margin: "4px 0 0" }}>
+      <ul style={{ listStyle: "none", padding: 0, margin: "5px 0 0" }}>
         {bullets.map((b, i) => (
-          <li key={i} style={{ paddingLeft: "10px", position: "relative", fontSize: "8.5px", lineHeight: 1.55, marginBottom: "2px", color: "#333" }}>
+          <li key={i} style={{ paddingLeft: "12px", position: "relative", fontSize: "11px", lineHeight: 1.6, marginBottom: "3px", color: "#333" }}>
             <span style={{ position: "absolute", left: 0, color: "var(--accent)", fontWeight: 700 }}>–</span>
             {b}
           </li>
