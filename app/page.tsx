@@ -355,8 +355,10 @@ function BeforeCard() {
         color: "#000",
         lineHeight: 1.6,
         aspectRatio: "210 / 297",
+        position: "relative",
       }}
     >
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "80px", background: "linear-gradient(to bottom, transparent, #fff)", pointerEvents: "none", zIndex: 2 }} />
       {/* Label */}
       <div
         style={{
@@ -529,7 +531,8 @@ function WordSection({ title, children }: { title: string; children: React.React
 
 function AfterCard() {
   return (
-    <div style={{ background: "#fff", border: "2px solid var(--ink)", fontFamily: "var(--font-inter-tight)", overflow: "hidden", aspectRatio: "210 / 297" }}>
+    <div style={{ background: "#fff", border: "2px solid var(--ink)", fontFamily: "var(--font-inter-tight)", overflow: "hidden", aspectRatio: "210 / 297", position: "relative" }}>
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "80px", background: "linear-gradient(to bottom, transparent, #fff)", pointerEvents: "none", zIndex: 2 }} />
       <div style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--accent)", padding: "10px 20px 0" }}>
         ✓ After
       </div>
