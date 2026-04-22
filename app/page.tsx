@@ -364,7 +364,7 @@ function BeforeCard() {
         position: "relative",
       }}
     >
-      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "35%", background: "linear-gradient(to bottom, transparent, #fff)", pointerEvents: "none", zIndex: 2 }} />
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "35%", background: "linear-gradient(to bottom, rgba(255,255,255,0), #ffffff)", pointerEvents: "none", zIndex: 2 }} />
       {/* The terrible CV */}
       <div style={{ padding: "10px 14px 14px" }}>
         {/* Word-style blue header banner */}
@@ -524,7 +524,7 @@ function WordSection({ title, children }: { title: string; children: React.React
 function AfterCard() {
   return (
     <div style={{ background: "#fff", border: "2px solid var(--ink)", fontFamily: "var(--font-inter-tight)", overflow: "hidden", aspectRatio: "210 / 297", position: "relative" }}>
-      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "35%", background: "linear-gradient(to bottom, transparent, #fff)", pointerEvents: "none", zIndex: 2 }} />
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "35%", background: "linear-gradient(to bottom, rgba(255,255,255,0), #ffffff)", pointerEvents: "none", zIndex: 2 }} />
       <div style={{ padding: "12px 20px 18px" }}>
         <p style={{ fontFamily: "var(--font-fraunces)", fontWeight: 900, fontSize: "22px", letterSpacing: "-0.03em", lineHeight: 1, marginBottom: "3px" }}>
           Rahul Kumar
