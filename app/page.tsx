@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { UploadZone } from "@/components/upload-zone";
 import { extractTextFromFile } from "@/lib/parser";
+import { BeforeAfterSlider } from "@/components/before-after-slider";
 
-const MAX_FREE_USES = 3;
+const MAX_FREE_USES = 1;
 const USAGE_KEY = "pimp_cv_uses";
 
 type Status =
@@ -21,6 +22,7 @@ export default function HomePage() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string>("");
   const [usesLeft, setUsesLeft] = useState(MAX_FREE_USES);
+  const [showPaywall, setShowPaywall] = useState(false);
 
   useEffect(() => {
     const used = parseInt(localStorage.getItem(USAGE_KEY) || "0", 10);
@@ -30,7 +32,7 @@ export default function HomePage() {
   async function handleFile(file: File) {
     const used = parseInt(localStorage.getItem(USAGE_KEY) || "0", 10);
     if (used >= MAX_FREE_USES) {
-      setStatus("limit_reached");
+      setShowPaywall(true);
       return;
     }
 
@@ -74,6 +76,8 @@ export default function HomePage() {
   const isProcessing = status === "parsing" || status === "structuring";
 
   return (
+    <>
+    {showPaywall && <PaywallModal onClose={() => setShowPaywall(false)} />}
     <main
       style={{
         minHeight: "100vh",
@@ -108,7 +112,7 @@ export default function HomePage() {
             color: "var(--ink-faint)",
           }}
         >
-          {usesLeft}/{MAX_FREE_USES} free uses left
+          {usesLeft > 0 ? `${usesLeft} free CV remaining` : "free tier used"}
         </span>
       </nav>
 
@@ -168,27 +172,8 @@ export default function HomePage() {
         </p>
 
         {/* Upload zone */}
-        {status === "limit_reached" ? (
-          <div
-            style={{
-              border: "2px solid var(--accent)",
-              padding: "40px",
-              textAlign: "center",
-            }}
-          >
-            <p
-              style={{
-                fontFamily: "var(--font-fraunces)",
-                fontSize: "22px",
-                fontWeight: 700,
-                marginBottom: "8px",
-              }}
-            >
-              You've used all 3 free passes.
-            </p>
-            <p style={{ color: "var(--ink-muted)", fontSize: "14px" }}>
-              Premium coming soon. Clear browser storage to reset for now.
-            </p>
+        {false ? (
+          <div>
           </div>
         ) : (
           <UploadZone onFile={handleFile} disabled={isProcessing} />
@@ -220,29 +205,11 @@ export default function HomePage() {
       </section>
 
       {/* Before/After showcase */}
-      <section
-        style={{
-          maxWidth: "1200px",
-          margin: "60px auto 0",
-          padding: "0 48px 80px",
-        }}
-      >
-        <style>{`
-          @media (max-width: 640px) {
-            .before-after-grid { grid-template-columns: 1fr !important; }
-          }
-        `}</style>
-        <div
-          className="before-after-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "24px",
-          }}
-        >
-          <BeforeCard />
-          <AfterCard />
-        </div>
+      <section style={{ maxWidth: "900px", margin: "60px auto 0", padding: "0 48px 80px" }}>
+        <p style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ink-faint)", textAlign: "center", marginBottom: "16px" }}>
+          ← drag to compare →
+        </p>
+        <BeforeAfterSlider before={<BeforeCard />} after={<AfterCard />} />
       </section>
 
       {/* Footer */}
@@ -275,6 +242,7 @@ export default function HomePage() {
         </span>
       </footer>
     </main>
+    </>
   );
 }
 
@@ -629,6 +597,107 @@ function AfterEntry({ company, role, dates, bullets }: { company: string; role: 
           </li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+function PaywallModal({ onClose }: { onClose: () => void }) {
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: "fixed", inset: 0, zIndex: 200,
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+        background: "rgba(245, 241, 232, 0.6)",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        padding: "24px",
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          background: "rgba(255,255,255,0.75)",
+          border: "1px solid rgba(255,255,255,0.9)",
+          boxShadow: "0 24px 80px rgba(0,0,0,0.12)",
+          padding: "52px 48px",
+          maxWidth: "480px",
+          width: "100%",
+          textAlign: "center",
+        }}
+      >
+        <div style={{ fontSize: "32px", marginBottom: "16px" }}>🔒</div>
+
+        <h2 style={{
+          fontFamily: "var(--font-fraunces)",
+          fontSize: "30px",
+          fontWeight: 900,
+          letterSpacing: "-0.03em",
+          color: "var(--ink)",
+          marginBottom: "12px",
+          lineHeight: 1.1,
+        }}>
+          You've used your free CV.
+        </h2>
+
+        <p style={{
+          fontFamily: "var(--font-inter-tight)",
+          fontSize: "15px",
+          color: "var(--ink-muted)",
+          lineHeight: 1.6,
+          marginBottom: "32px",
+        }}>
+          Premium is coming soon — unlimited CVs, all templates, priority processing.
+          Drop your email and we'll tell you when it's ready.
+        </p>
+
+        <div style={{ display: "flex", gap: "8px", marginBottom: "16px" }}>
+          <input
+            type="email"
+            placeholder="your@email.com"
+            style={{
+              flex: 1,
+              fontFamily: "var(--font-inter-tight)",
+              fontSize: "14px",
+              border: "1px solid var(--border)",
+              background: "var(--cream)",
+              padding: "10px 14px",
+              outline: "none",
+              color: "var(--ink)",
+            }}
+          />
+          <button style={{
+            fontFamily: "var(--font-inter-tight)",
+            fontWeight: 700,
+            fontSize: "12px",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            background: "var(--ink)",
+            color: "var(--cream)",
+            border: "none",
+            padding: "10px 20px",
+            cursor: "pointer",
+            whiteSpace: "nowrap",
+          }}>
+            Notify me
+          </button>
+        </div>
+
+        <button
+          onClick={onClose}
+          style={{
+            fontFamily: "var(--font-jetbrains-mono)",
+            fontSize: "11px",
+            color: "var(--ink-faint)",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            letterSpacing: "0.05em",
+          }}
+        >
+          maybe later
+        </button>
+      </div>
     </div>
   );
 }
