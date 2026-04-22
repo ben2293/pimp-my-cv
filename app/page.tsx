@@ -582,6 +582,33 @@ function AfterCard() {
             <span style={{ fontWeight: 600 }}>Tools:</span> <span style={{ color: "#666" }}>Git, MS Office, Linux</span>
           </div>
         </AfterSection>
+
+        <AfterSection label="Projects">
+          <div style={{ marginBottom: "7px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+              <span style={{ fontSize: "9px", fontWeight: 700 }}>Inventory Management System</span>
+              <span style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "7px", color: "#bbb" }}>Python · MySQL</span>
+            </div>
+            <p style={{ fontSize: "8px", color: "#666", margin: "2px 0 0", lineHeight: 1.5 }}>Built a desktop app to manage stock for 3 local businesses, reducing manual errors by ~80%.</p>
+          </div>
+          <div>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+              <span style={{ fontSize: "9px", fontWeight: 700 }}>College Fest Portal</span>
+              <span style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "7px", color: "#bbb" }}>React · Node.js</span>
+            </div>
+            <p style={{ fontSize: "8px", color: "#666", margin: "2px 0 0", lineHeight: 1.5 }}>Event registration platform used by 1,200+ students across 14 events at VIT annual fest.</p>
+          </div>
+        </AfterSection>
+
+        <AfterSection label="Achievements">
+          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+            {["Ranked top 5% in CodeChef Division 3 contest (Jan 2023)", "Smart India Hackathon finalist, team of 6 (2022)", "Led college coding club of 80+ members for 2 consecutive years"].map((a, i) => (
+              <li key={i} style={{ fontSize: "8px", color: "#555", lineHeight: 1.6, paddingLeft: "10px", position: "relative" }}>
+                <span style={{ position: "absolute", left: 0, color: "var(--accent)" }}>–</span>{a}
+              </li>
+            ))}
+          </ul>
+        </AfterSection>
       </div>
     </div>
   );
