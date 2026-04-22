@@ -207,7 +207,7 @@ export default function HomePage() {
       {/* Before/After showcase */}
       <section style={{ maxWidth: "1200px", margin: "60px auto 0", padding: "0 48px 80px" }}>
         {/* Desktop: side by side */}
-        <div className="ba-desktop" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+        <div className="ba-desktop" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", alignItems: "stretch" }}>
           <BeforeCard />
           <AfterCard />
         </div>
@@ -228,6 +228,7 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer
+        className="site-footer"
         style={{
           borderTop: "1px solid var(--border)",
           padding: "24px 40px",
@@ -255,6 +256,11 @@ export default function HomePage() {
           v1.0 · Built in India
         </span>
       </footer>
+      <style>{`
+        @media (max-width: 640px) {
+          .site-footer { flex-direction: column; gap: 6px; padding: 20px 24px; text-align: center; }
+        }
+      `}</style>
     </main>
     </>
   );
@@ -522,7 +528,7 @@ function WordSection({ title, children }: { title: string; children: React.React
 
 function AfterCard() {
   return (
-    <div style={{ background: "#fff", border: "2px solid var(--ink)", fontFamily: "var(--font-inter-tight)", overflow: "hidden" }}>
+    <div style={{ background: "#fff", border: "2px solid var(--ink)", fontFamily: "var(--font-inter-tight)", overflow: "hidden", minHeight: "100%" }}>
       <div style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--accent)", padding: "10px 20px 0" }}>
         ✓ After
       </div>
