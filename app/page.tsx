@@ -641,6 +641,18 @@ function AfterEntry({ company, role, dates, bullets }: { company: string; role: 
 }
 
 function PaywallModal({ onClose }: { onClose: () => void }) {
+  const [email, setEmail] = useState("");
+  const [state, setState] = useState<"idle" | "loading" | "done">("idle");
+
+  async function submit() {
+    if (!email.includes("@")) return;
+    setState("loading");
+    try {
+      await fetch("/api/waitlist", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email }) });
+    } catch {}
+    setState("done");
+  }
+
   return (
     <div
       onClick={onClose}
@@ -690,37 +702,47 @@ function PaywallModal({ onClose }: { onClose: () => void }) {
           Drop your email and we'll tell you when it's ready.
         </p>
 
-        <div style={{ display: "flex", gap: "8px", marginBottom: "16px" }}>
-          <input
-            type="email"
-            placeholder="your@email.com"
-            style={{
-              flex: 1,
+        {state === "done" ? (
+          <div style={{ fontFamily: "var(--font-inter-tight)", fontSize: "15px", color: "var(--accent)", fontWeight: 600, marginBottom: "16px", padding: "16px 0" }}>
+            ✓ You're on the list! We'll email you when it's ready.
+          </div>
+        ) : (
+          <div style={{ display: "flex", gap: "8px", marginBottom: "16px" }}>
+            <input
+              type="email"
+              placeholder="your@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && submit()}
+              style={{
+                flex: 1,
+                fontFamily: "var(--font-inter-tight)",
+                fontSize: "14px",
+                border: "1px solid var(--border)",
+                background: "var(--cream)",
+                padding: "10px 14px",
+                outline: "none",
+                color: "var(--ink)",
+              }}
+            />
+            <button onClick={submit} disabled={state === "loading"} style={{
               fontFamily: "var(--font-inter-tight)",
-              fontSize: "14px",
-              border: "1px solid var(--border)",
-              background: "var(--cream)",
-              padding: "10px 14px",
-              outline: "none",
-              color: "var(--ink)",
-            }}
-          />
-          <button style={{
-            fontFamily: "var(--font-inter-tight)",
-            fontWeight: 700,
-            fontSize: "12px",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            background: "var(--ink)",
-            color: "var(--cream)",
-            border: "none",
-            padding: "10px 20px",
-            cursor: "pointer",
-            whiteSpace: "nowrap",
-          }}>
-            Notify me
-          </button>
-        </div>
+              fontWeight: 700,
+              fontSize: "12px",
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              background: "var(--ink)",
+              color: "var(--cream)",
+              border: "none",
+              padding: "10px 20px",
+              cursor: state === "loading" ? "default" : "pointer",
+              whiteSpace: "nowrap",
+              opacity: state === "loading" ? 0.6 : 1,
+            }}>
+              {state === "loading" ? "..." : "Notify me"}
+            </button>
+          </div>
+        )}
 
         <button
           onClick={onClose}
