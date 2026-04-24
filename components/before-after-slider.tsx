@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 
 export function BeforeAfterSlider({
   before,
@@ -10,8 +10,18 @@ export function BeforeAfterSlider({
   after: React.ReactNode;
 }) {
   const [pct, setPct] = useState(50);
+  const [containerW, setContainerW] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const dragging = useRef(false);
+
+  useEffect(() => {
+    const update = () => {
+      if (containerRef.current) setContainerW(containerRef.current.offsetWidth);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   const move = useCallback((clientX: number) => {
     const rect = containerRef.current?.getBoundingClientRect();
@@ -44,14 +54,14 @@ export function BeforeAfterSlider({
         {after}
       </div>
 
-      {/* Before (clipped overlay on left) */}
+      {/* Before (clipped overlay on left) — must be full slider width so ScaledA4 measures correctly */}
       <div style={{
         position: "absolute",
         inset: 0,
         overflow: "hidden",
         width: `${pct}%`,
       }}>
-        <div style={{ width: containerRef.current?.offsetWidth ?? 600 }}>
+        <div style={{ width: containerW > 0 ? containerW : "100%" }}>
           {before}
         </div>
       </div>
@@ -67,7 +77,6 @@ export function BeforeAfterSlider({
         transform: "translateX(-50%)",
         pointerEvents: "none",
       }}>
-        {/* Handle */}
         <div style={{
           position: "absolute",
           top: "50%",

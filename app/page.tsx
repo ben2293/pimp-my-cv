@@ -357,17 +357,29 @@ function ScaledA4({ children }: { children: React.ReactNode }) {
   const [scale, setScale] = useState<number | null>(null);
 
   useEffect(() => {
-    let r1: number, r2: number;
-    const measure = () => {
+    let active = true;
+
+    const tryMeasure = () => {
+      if (!active || !wrapperRef.current) return;
+      const w = wrapperRef.current.getBoundingClientRect().width;
+      if (w > 0) {
+        setScale(w / A4_RENDER_W);
+      } else {
+        // Element might be hidden (display:none from CSS toggle) — keep polling
+        requestAnimationFrame(tryMeasure);
+      }
+    };
+
+    requestAnimationFrame(tryMeasure);
+
+    const ro = new ResizeObserver(() => {
       if (!wrapperRef.current) return;
       const w = wrapperRef.current.getBoundingClientRect().width;
       if (w > 0) setScale(w / A4_RENDER_W);
-    };
-    // Double RAF ensures browser has completed layout before measuring
-    r1 = requestAnimationFrame(() => { r2 = requestAnimationFrame(measure); });
-    const ro = new ResizeObserver(measure);
+    });
     if (wrapperRef.current) ro.observe(wrapperRef.current);
-    return () => { cancelAnimationFrame(r1); cancelAnimationFrame(r2); ro.disconnect(); };
+
+    return () => { active = false; ro.disconnect(); };
   }, []);
 
   return (
