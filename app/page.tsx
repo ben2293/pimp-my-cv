@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { UploadZone } from "@/components/upload-zone";
 import { extractTextFromFile } from "@/lib/parser";
@@ -210,11 +210,11 @@ export default function HomePage() {
         <div className="ba-desktop" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
           <div>
             <p style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--ink-faint)", marginBottom: "8px" }}>✗ Before</p>
-            <BeforeCard />
+            <ScaledA4><BeforeCard /></ScaledA4>
           </div>
           <div>
             <p style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--accent)", marginBottom: "8px" }}>✓ After</p>
-            <AfterCard />
+            <ScaledA4><AfterCard /></ScaledA4>
           </div>
         </div>
         {/* Mobile: drag slider */}
@@ -222,7 +222,7 @@ export default function HomePage() {
           <p style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ink-faint)", textAlign: "center", marginBottom: "16px" }}>
             ← drag to compare →
           </p>
-          <BeforeAfterSlider before={<BeforeCard />} after={<AfterCard />} />
+          <BeforeAfterSlider before={<ScaledA4><BeforeCard /></ScaledA4>} after={<ScaledA4><AfterCard /></ScaledA4>} />
         </div>
         <style>{`
           @media (max-width: 640px) {
@@ -349,6 +349,38 @@ function ProcessingBar({ status }: { status: Status }) {
   );
 }
 
+const A4_RENDER_W = 600;
+const A4_RENDER_H = Math.round(A4_RENDER_W * (297 / 210));
+
+function ScaledA4({ children }: { children: React.ReactNode }) {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState<number | null>(null);
+
+  useEffect(() => {
+    let r1: number, r2: number;
+    const measure = () => {
+      if (!wrapperRef.current) return;
+      const w = wrapperRef.current.getBoundingClientRect().width;
+      if (w > 0) setScale(w / A4_RENDER_W);
+    };
+    // Double RAF ensures browser has completed layout before measuring
+    r1 = requestAnimationFrame(() => { r2 = requestAnimationFrame(measure); });
+    const ro = new ResizeObserver(measure);
+    if (wrapperRef.current) ro.observe(wrapperRef.current);
+    return () => { cancelAnimationFrame(r1); cancelAnimationFrame(r2); ro.disconnect(); };
+  }, []);
+
+  return (
+    <div ref={wrapperRef} style={{ width: "100%", aspectRatio: "210/297", overflow: "hidden", position: "relative" }}>
+      {scale !== null && (
+        <div style={{ width: A4_RENDER_W, height: A4_RENDER_H, transform: `scale(${scale})`, transformOrigin: "top left", position: "absolute", top: 0, left: 0 }}>
+          {children}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function BeforeCard() {
   return (
     <div
@@ -360,7 +392,8 @@ function BeforeCard() {
         fontFamily: "Times New Roman, serif",
         color: "#000",
         lineHeight: 1.6,
-        aspectRatio: "210 / 297",
+        width: "100%",
+        height: "100%",
         position: "relative",
       }}
     >
@@ -523,7 +556,7 @@ function WordSection({ title, children }: { title: string; children: React.React
 
 function AfterCard() {
   return (
-    <div style={{ background: "#fff", border: "2px solid var(--ink)", fontFamily: "var(--font-inter-tight)", overflow: "hidden", aspectRatio: "210 / 297", position: "relative" }}>
+    <div style={{ background: "#fff", border: "2px solid var(--ink)", fontFamily: "var(--font-inter-tight)", overflow: "hidden", width: "100%", height: "100%", position: "relative" }}>
       <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "35%", background: "linear-gradient(to bottom, rgba(255,255,255,0), #ffffff)", pointerEvents: "none", zIndex: 2 }} />
       <div style={{ padding: "18px 26px 20px" }}>
         <p style={{ fontFamily: "var(--font-fraunces)", fontWeight: 900, fontSize: "32px", letterSpacing: "-0.03em", lineHeight: 1, marginBottom: "4px" }}>
