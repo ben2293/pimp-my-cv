@@ -217,17 +217,18 @@ export default function HomePage() {
             <ScaledA4><AfterCard /></ScaledA4>
           </div>
         </div>
-        {/* Mobile: drag slider */}
-        <div className="ba-mobile" style={{ display: "none" }}>
+        {/* Mobile: drag slider — uses height:0 not display:none so ScaledA4 can measure width */}
+        <div className="ba-mobile">
           <p style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ink-faint)", textAlign: "center", marginBottom: "16px" }}>
             ← drag to compare →
           </p>
           <BeforeAfterSlider before={<ScaledA4><BeforeCard /></ScaledA4>} after={<ScaledA4><AfterCard /></ScaledA4>} />
         </div>
         <style>{`
+          .ba-mobile { height: 0; overflow: hidden; pointer-events: none; }
           @media (max-width: 640px) {
-            .ba-desktop { display: none !important; }
-            .ba-mobile { display: block !important; }
+            .ba-desktop { height: 0; overflow: hidden; pointer-events: none; }
+            .ba-mobile { height: auto; overflow: visible; pointer-events: auto; }
           }
         `}</style>
       </section>
