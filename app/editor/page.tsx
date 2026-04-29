@@ -257,7 +257,7 @@ export default function EditorPage() {
         </aside>
 
         {/* CV preview */}
-        <div ref={cvRef} style={{ display: "flex", justifyContent: "center" }}>
+        <div ref={cvRef} style={{ display: "flex", justifyContent: "center" }} onContextMenu={(e) => e.preventDefault()}>
           <CVRenderer templateId={templateId} data={cvData} fontPairing={selectedFont} />
         </div>
       </div>
