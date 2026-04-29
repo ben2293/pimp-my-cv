@@ -167,7 +167,8 @@ export default function HomePage() {
             margin: "0 auto 48px",
           }}
         >
-          Upload your cluttered, objective-filled, father's-name-having CV.
+          Upload your cluttered, objective-filled, father's-name-having CV.{" "}
+          <br />
           Get back a clean, tastefully designed, impact-led resume in 10 seconds.
         </p>
 
