@@ -42,7 +42,7 @@ export default function HomePage() {
 
       const rawText = await extractTextFromFile(file);
       if (!rawText || rawText.trim().length < 50) {
-        throw new Error("Could not extract text from file. Is it a scanned PDF?");
+        throw new Error("Could not extract text from file. The file may be encrypted or damaged.");
       }
 
       setStatus("structuring");
@@ -167,7 +167,8 @@ export default function HomePage() {
             margin: "0 auto 48px",
           }}
         >
-          Upload your cluttered, objective-filled, father's-name-having CV.
+          Upload your cluttered, objective-filled, father's-name-having CV.{" "}
+          <br />
           Get back a clean, tastefully designed, impact-led resume in 10 seconds.
         </p>
 
