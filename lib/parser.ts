@@ -35,5 +35,8 @@ async function extractFromDOCX(file: File): Promise<string> {
   const mammoth = await import("mammoth");
   const arrayBuffer = await file.arrayBuffer();
   const result = await mammoth.extractRawText({ arrayBuffer });
+  if (result.messages && result.messages.some((m: { type: string }) => m.type === "error")) {
+    throw new Error("Could not read DOCX file. The file may be corrupted.");
+  }
   return result.value;
 }

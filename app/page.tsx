@@ -42,7 +42,11 @@ export default function HomePage() {
 
       const rawText = await extractTextFromFile(file);
       if (!rawText || rawText.trim().length < 50) {
-        throw new Error("Could not extract text from file. Is it a scanned PDF?");
+        const ext = file.name.split(".").pop()?.toLowerCase();
+        const hint = ext === "pdf"
+          ? "Is it a scanned/image-based PDF? Try exporting it as a text PDF."
+          : "The file appears to have no readable text.";
+        throw new Error(`Could not extract text from file. ${hint}`);
       }
 
       setStatus("structuring");
