@@ -103,13 +103,27 @@ export default function EditorPage() {
           </span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <button
-            onClick={() => setTemplateId(null)}
-            className="btn-change-tmpl"
-            style={{ fontFamily: "var(--font-inter-tight)", fontSize: "12px", background: "none", border: "1px solid #444", color: "#aaa", padding: "6px 12px", cursor: "pointer" }}
-          >
-            Change template
-          </button>
+          <div style={{ display: "flex", alignItems: "center", gap: "4px", marginRight: "8px" }}>
+            {TEMPLATES.map((tmpl) => (
+              <button
+                key={tmpl.id}
+                onClick={() => setTemplateId(tmpl.id)}
+                style={{
+                  fontFamily: "var(--font-inter-tight)",
+                  fontSize: "12px",
+                  fontWeight: tmpl.id === templateId ? 700 : 400,
+                  background: tmpl.id === templateId ? "var(--accent)" : "none",
+                  border: tmpl.id === templateId ? "1px solid var(--accent)" : "1px solid #444",
+                  color: tmpl.id === templateId ? "#fff" : "#aaa",
+                  padding: "5px 10px",
+                  cursor: "pointer",
+                  transition: "all 0.1s",
+                }}
+              >
+                {tmpl.name}
+              </button>
+            ))}
+          </div>
           <button onClick={downloadPDF} style={{ fontFamily: "var(--font-inter-tight)", fontWeight: 700, fontSize: "12px", letterSpacing: "0.1em", textTransform: "uppercase", background: "var(--accent)", color: "#fff", border: "none", padding: "8px 16px", cursor: "pointer", whiteSpace: "nowrap" }}>
             Download PDF
           </button>
@@ -243,7 +257,7 @@ export default function EditorPage() {
         </aside>
 
         {/* CV preview */}
-        <div ref={cvRef} style={{ display: "flex", justifyContent: "center" }}>
+        <div ref={cvRef} style={{ display: "flex", justifyContent: "center" }} onContextMenu={(e) => e.preventDefault()}>
           <CVRenderer templateId={templateId} data={cvData} fontPairing={selectedFont} />
         </div>
       </div>
