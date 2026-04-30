@@ -18,6 +18,7 @@ export async function POST(req: NextRequest) {
       messages: [
         {
           role: "user",
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           content: [
             {
               type: "document",
@@ -27,7 +28,7 @@ export async function POST(req: NextRequest) {
               type: "text",
               text: "Extract all text from this resume PDF. Return only the raw extracted text, preserving the structure (sections, bullet points, dates). No commentary.",
             },
-          ],
+          ] as any,
         },
       ],
     });
