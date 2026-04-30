@@ -12,47 +12,21 @@ export async function extractTextFromFile(file: File): Promise<string> {
 }
 
 async function extractFromPDF(file: File): Promise<string> {
-  const pdfjsLib = await import("pdfjs-dist");
-  pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
+  const formData = new FormData();
+  formData.append("file", file);
 
-  const arrayBuffer = await file.arrayBuffer();
-  const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-
-  const pages: string[] = [];
-  for (let i = 1; i <= pdf.numPages; i++) {
-    const page = await pdf.getPage(i);
-    const content = await page.getTextContent();
-    const pageText = content.items
-      .map((item) => ("str" in item ? item.str : ""))
-      .join(" ");
-    pages.push(pageText);
-  }
-
-  const text = pages.join("\n\n");
-  if (text.trim().length >= 50) return text;
-
-  // Image-based PDF — render pages to canvas and OCR via Claude Vision
-  const images: string[] = [];
-  for (let i = 1; i <= pdf.numPages; i++) {
-    const page = await pdf.getPage(i);
-    const viewport = page.getViewport({ scale: 2.0 });
-    const canvas = document.createElement("canvas");
-    canvas.width = viewport.width;
-    canvas.height = viewport.height;
-    const ctx = canvas.getContext("2d")!;
-    await page.render({ canvasContext: ctx, viewport }).promise;
-    images.push(canvas.toDataURL("image/jpeg", 0.85).split(",")[1]);
-  }
-
-  const res = await fetch("/api/ocr", {
+  const res = await fetch("/api/parse-pdf", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ images }),
+    body: formData,
   });
 
-  if (!res.ok) throw new Error("OCR failed. Please try a different file.");
-  const { text: ocrText } = await res.json();
-  return ocrText;
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.error || "Could not parse PDF. Please try again.");
+  }
+
+  const { text } = await res.json();
+  return text;
 }
 
 async function extractFromDOCX(file: File): Promise<string> {
