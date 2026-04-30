@@ -12,6 +12,31 @@ export async function extractTextFromFile(file: File): Promise<string> {
 }
 
 async function extractFromPDF(file: File): Promise<string> {
+  // Try pdfjs first (free, client-side, works for text-based PDFs)
+  try {
+    const pdfjsLib = await import("pdfjs-dist");
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
+
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
+    const pages: string[] = [];
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      const pageText = content.items
+        .map((item) => ("str" in item ? item.str : ""))
+        .join(" ");
+      pages.push(pageText);
+    }
+
+    const text = pages.join("\n\n");
+    if (text.trim().length >= 50) return text;
+  } catch {
+    // pdfjs failed — fall through to Claude
+  }
+
+  // Fallback: scanned/image-based PDF — use Claude native PDF reading
   const formData = new FormData();
   formData.append("file", file);
 
